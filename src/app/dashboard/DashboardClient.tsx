@@ -35,8 +35,8 @@ const DashboardClient: React.FC<DashboardClientProps> = ({ user }) => {
 
   const handleGoogleSignIn = () => {
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
-      `client_id=413234840872-a68qh5oa4vcb2fa7l5nu90f34962gh2h.apps.googleusercontent.com&` + 
-      `redirect_uri=${encodeURIComponent('http://localhost:3000/api/auth/callback')}&`+
+      `client_id=${process.env.GOOGLE_CLIENT_ID}&` + 
+      `redirect_uri=${process.env.GOOGLE_REDIRECT_URI}&`+
       `response_type=code&` +
       `scope=${encodeURIComponent('https://www.googleapis.com/auth/calendar')}`;
     window.location.href = googleAuthUrl; 

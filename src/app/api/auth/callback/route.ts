@@ -24,9 +24,9 @@ export async function GET(request: Request) {
         const response = await axios.post('https://oauth2.googleapis.com/token', null, {
             params: {
                 code,
-                client_id: "413234840872-a68qh5oa4vcb2fa7l5nu90f34962gh2h.apps.googleusercontent.com",
-                client_secret:"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",
-                redirect_uri: "http://localhost:3000/api/auth/callback",
+                client_id: process.env.GOOGLE_CLIENT_ID,
+                client_secret:process.env.GOOGLE_CLIENT_SECRET,
+                redirect_uri: process.env.GOOGLE_REDIRECT_URI,
                 grant_type: 'authorization_code',
             },
         });
