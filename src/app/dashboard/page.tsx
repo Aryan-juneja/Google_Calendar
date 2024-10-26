@@ -1,4 +1,6 @@
+// src/app/dashboard/page.tsx
 import { auth, currentUser } from '@clerk/nextjs';
+import DashboardClient from './DashboardClient';
 
 export default async function DashboardPage() {
   const { userId } = auth();
@@ -8,21 +10,14 @@ export default async function DashboardPage() {
     return <div>You are not logged in</div>;
   }
 
-  return (
-    <div className='mt-10 text-start max-w-xl mx-auto bg-neutral-200 p-5 rounded'>
-      <h1 className='text-4xl font-bold'>Welcome</h1>
-      <ul className='list-none mt-10'>
-        <li className='mb-2'>
-          <span className='font-semibold'>First Name:</span> {user.firstName}
-        </li>
-        <li className='mb-2'>
-          <span className='font-semibold'>Last Name:</span> {user.lastName}
-        </li>
-        <li className='mb-2'>
-          <span className='font-semibold'>Email:</span>{' '}
-          {user.emailAddresses[0].emailAddress}
-        </li>
-      </ul>
-    </div>
-  );
+  // Create a plain user object to pass to the client component
+  const plainUser = {
+    firstName: user.firstName ?? null,
+    lastName: user.lastName ?? null,
+    emailAddresses: user.emailAddresses.map(email => ({
+      emailAddress: email.emailAddress,
+    })),
+  };
+
+  return <DashboardClient user={plainUser} />;
 }
